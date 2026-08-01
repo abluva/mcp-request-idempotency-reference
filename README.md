@@ -42,6 +42,16 @@ This spawns `server.py` as a stdio subprocess and runs three scenarios:
 
 Verified working end-to-end against `mcp==1.9.4` on 2026-08-01.
 
+**Note on the 2026-07-28 stateless spec:** this demo's dedup logic
+(`_dedup_store` in `server.py`) is keyed entirely by the client-supplied
+`idempotencyKey` and never depends on protocol-level session state, so
+nothing here needed to change when MCP went stateless. The one thing
+worth calling out for anyone adapting this into a real server: in a
+horizontally-scaled, stateless deployment, that store needs to be
+shared across instances (a cache or database), not a per-process dict
+like this demo uses — see the SEP's "Relationship to the 2026-07-28
+stateless core and MRTR" section for why.
+
 ## Files
 
 - `server.py` — the guarded (`charge_guarded`) and unguarded
