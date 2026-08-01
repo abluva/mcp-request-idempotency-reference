@@ -1,10 +1,10 @@
 # Request Idempotency — Reference Implementation
 
 Minimal, runnable demonstration of the mechanism proposed in
-`sep-0000-request-idempotency.md`: an optional `idempotencyKey` argument
-on `tools/call`, with server-side deduplication and explicit
-conflict-fingerprint semantics for a reused key presented with different
-arguments.
+[SEP-3182: Request Idempotency](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3182):
+an optional `idempotencyKey` argument on `tools/call`, with server-side
+deduplication and explicit conflict-fingerprint semantics for a reused
+key presented with different arguments.
 
 This is a demonstration server, not a production implementation — the
 dedup store is an in-memory dict with no eviction. It exists to make the
