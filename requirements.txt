@@ -1,0 +1,5 @@
+# Pinned deliberately: as of mcp==2.0.0, FastMCP was renamed/moved to
+# mcp.server.mcpserver.MCPServer, which breaks the `from mcp.server.fastmcp
+# import FastMCP` import this demo uses. Pin below the rename until the
+# demo is ported to the new API.
+mcp>=1.9.0,<2.0.0
