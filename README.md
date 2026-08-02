@@ -1,9 +1,10 @@
 # Request Idempotency — Reference Implementation
 
-Minimal, runnable demonstration of the mechanism proposed in
+Minimal, runnable demonstration of the protocol-level mechanism proposed in
 [SEP-3182: Request Idempotency](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3182):
-an optional `idempotencyKey` argument on `tools/call`, with server-side
-deduplication and explicit conflict-fingerprint semantics for a reused
+an `idempotencyKey` field on `tools/call` params (a sibling of `arguments`,
+not nested inside it), with deduplication performed in server-side dispatch
+before any tool handler runs, and explicit conflict semantics for a reused
 key presented with different arguments.
 
 This is a demonstration server, not a production implementation — the
