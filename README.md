@@ -20,12 +20,20 @@ pip install -r requirements.txt
 ```
 
 **Note on the version pin:** this demo uses `FastMCP` from
-`mcp.server.fastmcp`. As of the `mcp` SDK's `2.0.0` release, that class
-was renamed and moved to `MCPServer` in `mcp.server.mcpserver`. Installing
-a plain `pip install mcp` today will pull `2.0.0` and fail on import. The
-pin above (`mcp>=1.9.0,<2.0.0`) avoids that; if you'd rather run against
-the current SDK, swap the import for `mcp.server.mcpserver.MCPServer`
-(same constructor/decorator surface for the pieces this demo uses).
+`mcp.server.fastmcp`, and relies on `CallToolRequestParams` allowing
+extra fields (`model_config = {"extra": "allow"}`) to carry
+`idempotencyKey` as a sibling of `arguments`. As of the `mcp` SDK's
+`2.0.0` release, both of these changed: `FastMCP` was renamed and moved
+to `MCPServer` in `mcp.server.mcpserver`, **and** `CallToolRequestParams`
+no longer allows extra fields — an `idempotencyKey` sent under `2.0.0`
+is silently dropped at construction, with no error, rather than causing
+an import failure. Installing a plain `pip install mcp` today will pull
+`2.0.0` and this demo will appear to run while never actually
+deduplicating anything. The pin above (`mcp>=1.9.0,<2.0.0`) avoids both
+problems. Porting this demo to `2.0.0` would require `idempotencyKey` to
+be added as a declared field (or an equivalent extension mechanism, if
+`MCPServer` provides one) rather than relying on extra-field passthrough
+— that port is out of scope for this prototype.
 
 ## Run
 
